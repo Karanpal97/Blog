@@ -1,7 +1,7 @@
 import config from "../config/config";
 import {Client,Account} from "appwrite"
 
-export class AppService {
+ class AppService {
   client =new Client
   account;
 
