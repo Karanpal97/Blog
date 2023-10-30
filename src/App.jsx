@@ -8,11 +8,12 @@ import {logOut,login} from "./App/AuthSlice"
 
 function App() {
 const [loading,setLoadig]=useState(true);
+const dispach=useDispatch()
 useEffect(()=>{
   appService.getUser()
   .then((userData)=>{
     if(userData){
-      useDispatch(login({userData}))
+      dispach(login({userData}))
     }else{
       useDispatch(logOut)
     }
