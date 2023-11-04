@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import {Link,useNavigate} from "react-router-dom"
 import {login as authLogin} from "../App/AuthSlice"
-import {Input} from "./index"
+import {Input,Button,LogoutBtn} from "./index"
 import {useForm} from "react-hook-form"
 import appService from "../App_right/Auth"
 import {useDispatch} from "react-redux"
@@ -64,10 +64,20 @@ function Login(){
                         "Email address must be a valid address",
                     }
                 })}
-                
-                
-                
                 />
+                <input
+                label="password"
+                placeholder="write your password here"
+                type="password"
+                {...register("password"),{
+                    required:true,
+                }}
+                />
+                <Button 
+                type="submit"
+                className="w-full"
+                >Sign In</Button>
+
                 </div>
                 </form>
         </div>
