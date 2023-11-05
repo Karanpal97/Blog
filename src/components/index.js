@@ -9,6 +9,7 @@ import SignUp from "./SignUp";
 import Login from "./Login";
 import PostForm from "./postForm/postForm";
 import PostCard from "./postCard";
+import Protected from "./AuthLayOut";
 
 
 export {
@@ -22,5 +23,6 @@ export {
     SignUp,
     Login,
     PostForm,
-    PostCard
+    PostCard,
+    Protected
 }
