@@ -44,7 +44,7 @@ async Delete(slug){
             throw error
         }
 }
-async UpDate({slug,tittle,content,image,status}){
+async UpDate(slug,{tittle,content,image,status}){
 
     try{
       return await this.databases.updateDocument(
@@ -59,7 +59,7 @@ async UpDate({slug,tittle,content,image,status}){
         }
       )
     }catch{
-
+  throw error
 
     }
 

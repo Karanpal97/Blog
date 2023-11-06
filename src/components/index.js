@@ -1,6 +1,6 @@
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
-import Container from "./Container/Container";
+import  Container  from "./Container/Container";
 import Logo from "./Logo";
 import LogoutBtn from "./Header/LogOutBtn";
 import Input from "./input";
@@ -10,6 +10,8 @@ import Login from "./Login";
 import PostForm from "./postForm/postForm";
 import PostCard from "./postCard";
 import Protected from "./AuthLayOut";
+import Button from "./button"
+import Select from "./Select"
 
 
 export {
@@ -24,5 +26,7 @@ export {
     Login,
     PostForm,
     PostCard,
-    Protected
+    Protected,
+    Button,
+    Select
 }

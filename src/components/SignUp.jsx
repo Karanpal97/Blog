@@ -1,39 +1,33 @@
-import React ,{useState}  from "react";
-import appService from "../App_right/Auth" 
-import {useForm} from "react-hook-form"
-import {Link,useNavigate} from "react-router-dom"
-import {Input,Logo, LogoutBtn,
-} from "./input";
-import {login as authLogin} from "../App/AuthSlice"
-import { useDispatch } from "react-redux";
+import React, {useState} from 'react'
+import authService from '../App_right/Auth'
+import {Link ,useNavigate} from 'react-router-dom'
+import {login} from '../App/AuthSlice'
+import {Button, Input, Logo} from './index.js'
+import {useDispatch} from 'react-redux'
+import {useForm} from 'react-hook-form'
 
+function Signup() {
+    const navigate = useNavigate()
+    const [error, setError] = useState("")
+    const dispatch = useDispatch()
+    const {register, handleSubmit} = useForm()
 
-function SignUp(){
-
-    const [error,setError]=useState("");
-    const dispach=useDispatch();
-    const {register,handleSubmit} =useForm()
-    const navigate=useNavigate()
-
-    async function SignUp(data){
-        setError("");
-        try{
-        const userData=await appService.createUser(data);
-        if(userData){
-        const userDetail=await appService.getUser();
-        if(userDetail){
-            dispach(authLogin(userDetail));
-            navigate("/");
-        }
-         }
-        }catch(error){
-         setError(error.message);
+    const create = async(data) => {
+        setError("")
+        try {
+            const userData = await authService.createAccount(data)
+            if (userData) {
+                const userData = await authService.getCurrentUser()
+                if(userData) dispatch(login(userData));
+                navigate("/")
+            }
+        } catch (error) {
+            setError(error.message)
         }
     }
 
-
-    return(
-        <div className="flex items-center justify-center">
+  return (
+    <div className="flex items-center justify-center">
             <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
             <div className="mb-2 flex justify-center">
                     <span className="inline-block w-full max-w-[100px]">
@@ -50,52 +44,45 @@ function SignUp(){
                         Sign In
                     </Link>
                 </p>
-
                 {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
-                <form onSubmit={handleSubmit(SignUp)}>
-                    <div className="space-y-5">
-                        <input
-                        label="Name"
-                        placeholder="enter your name"
-                        type="name"
-                        {...register("name",{
-                            required:true
+
+                <form onSubmit={handleSubmit(create)}>
+                    <div className='space-y-5'>
+                        <Input
+                        label="Full Name: "
+                        placeholder="Enter your full name"
+                        {...register("name", {
+                            required: true,
                         })}
                         />
-                        <input
-                        label="Email"
-                        placeholder="wite your email"
+                        <Input
+                        label="Email: "
+                        placeholder="Enter your email"
                         type="email"
-                        {...register("email",{
-                            required:true,
-                            validate:{
+                        {...register("email", {
+                            required: true,
+                            validate: {
                                 matchPatern: (value) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
                                 "Email address must be a valid address",
                             }
                         })}
                         />
-                        <input
-                        label="password"
-                        placeholder="write your password here"
+                        <Input
+                        label="Password: "
                         type="password"
-                        {...register("password"),{
-                            required:true,
-                        }}/>
-                        <button
-                        type="submit"
-                        className="w-full">
+                        placeholder="Enter your password"
+                        {...register("password", {
+                            required: true,})}
+                        />
+                        <Button type="submit" className="w-full">
                             Create Account
-                        </button>
-
-
+                        </Button>
                     </div>
                 </form>
+            </div>
 
-
-                </div>
-          </div>
-
-    )
+    </div>
+  )
 }
 
-export default SignUp
+export default Signup
